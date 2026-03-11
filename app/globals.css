@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --saffron: #ff9933;
+  --teal: #008080;
+  --off-white: #f5f0e8;
+  --deep-brown: #3d2914;
+  --road-tarmac: #2a2520;
+}
+
+body {
+  @apply bg-deep-brown text-off-white antialiased;
+}
+
+/* Prevent pull-to-refresh and overscroll on mobile */
+html, body {
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
