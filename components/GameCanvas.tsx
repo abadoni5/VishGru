@@ -55,6 +55,11 @@ import {
 const LANE_POSITIONS: Record<LaneIndex, number> = { 0: 0.2, 1: 0.5, 2: 0.8 };
 const HANDLEBAR_WIDTH_RATIO = 0.19;
 
+/** On narrow (mobile) screens lift handlebar so browser bottom bar doesn't cut it off. */
+function getHandlebarBottomOffset(width: number): number {
+  return width < 500 ? 56 : 0;
+}
+
 /** Screen rect for precise collision (same math as obstacle draw). */
 function getObstacleScreenRect(
   o: Obstacle,
@@ -88,7 +93,7 @@ function getHandlebarRect(lane: LaneIndex, width: number, height: number): { x: 
     ? Math.round(handlebarW * (handlebarImg.naturalHeight / handlebarImg.naturalWidth))
     : 28;
   const handlebarX = laneW * lane + laneW / 2 - handlebarW / 2;
-  const handlebarY = height - handlebarH * 0.65;
+  const handlebarY = height - handlebarH * 0.65 - getHandlebarBottomOffset(width);
   return { x: handlebarX, y: handlebarY, w: handlebarW, h: handlebarH };
 }
 
@@ -239,12 +244,12 @@ export function GameCanvas() {
         const aspect = handlebarImg.naturalHeight / handlebarImg.naturalWidth;
         const handlebarH = Math.round(handlebarW * aspect);
         const handlebarX = laneW * lane + laneW / 2 - handlebarW / 2;
-        const handlebarY = height - handlebarH * 0.65;
+        const handlebarY = height - handlebarH * 0.65 - getHandlebarBottomOffset(width);
         ctx.drawImage(handlebarImg, handlebarX, handlebarY, handlebarW, handlebarH);
       } else {
         const handlebarX = getHandlebarX(width);
         const handlebarH = 28;
-        const handlebarY = height * 0.72;
+        const handlebarY = height * 0.72 - getHandlebarBottomOffset(width);
         ctx.fillStyle = "#4a4a4a";
         ctx.fillRect(handlebarX, handlebarY, handlebarW * (0.2 / 0.9), handlebarH);
         ctx.strokeStyle = "#666";
