@@ -143,6 +143,7 @@ export function trySpawnObstacle(
     dog:     0.18 * 0.7,
     trash:   0.58 * 0.7,
     cowpat:  0.46,
+    aqi:     0.4,  // not spawned; placeholder for type completeness
   };
   const hAspect: Record<ObstacleType, number> = {
     pothole: 0.73,
@@ -153,6 +154,7 @@ export function trySpawnObstacle(
     dog:     2.08,
     trash:   0.90,
     cowpat:  0.97,
+    aqi:     1.0,
   };
   const w = Math.round(laneW * wFrac[type]);
   const h = Math.round(w * hAspect[type]);
